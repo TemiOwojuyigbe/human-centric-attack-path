@@ -1,12 +1,26 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+// Reference your services & models
+using HumanCentricAttackPath.Services;
+using HumanCentricAttackPath.Models;
+
+using System;
+using System.Linq;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// 1) Register controllers so that [ApiController]‐decorated classes get routed
+builder.Services.AddControllers();
+
+// 2) (Optional) If you want OpenAPI/Swagger, you can do this instead:
+// builder.Services.AddEndpointsApiExplorer();
+// builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -14,6 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Sample endpoint; leave it or comment it out as you like
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -21,7 +36,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -32,6 +47,34 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+// ====== Test code block ======
+{
+    var service = new AttackGraphService();
+    DemoData demo = service.LoadData();
+
+    Console.WriteLine($"Loaded {demo.persons.Count} persons from JSON:");
+    foreach (var p in demo.persons)
+    {
+        Console.WriteLine($"  - {p.name} (trained? {p.has_phish_training})");
+    }
+
+    Console.WriteLine($"Loaded {demo.locations.Count} locations from JSON:");
+    foreach (var loc in demo.locations)
+    {
+        Console.WriteLine($"  - {loc.name} (badge reader? {loc.has_badge_reader})");
+    }
+
+    Console.WriteLine($"Loaded {demo.assets.Count} assets from JSON:");
+    foreach (var a in demo.assets)
+    {
+        Console.WriteLine($"  - {a.name} (critical? {a.is_critical})");
+    }
+}
+// =============================
+
+ // 3) Map controllers so that routes in AttackController are exposed
+app.MapControllers();
 
 app.Run();
 
