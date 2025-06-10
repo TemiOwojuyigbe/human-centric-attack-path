@@ -18,7 +18,7 @@ namespace HumanCentricAttackPath.Services
             //Deserialize JSON string into DemoData
             var options = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true;
+                PropertyNameCaseInsensitive = true,
             };
             DemoData data = JsonSerializer.Deserialize<DemoData>(json, options);
 

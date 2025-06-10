@@ -6,9 +6,8 @@ namespace HumanCentricAttackPath.Models
     {
         public string location_id { get; set;}
         public string name { get; set;}
-        public bool has_badge_number { get; set;}
+        public bool has_badge_reader { get; set;}
         public List<string> adjacent_to { get; set;}
 
     }
 }
-

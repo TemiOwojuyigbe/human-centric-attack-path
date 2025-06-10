@@ -7,6 +7,6 @@ namespace HumanCentricAttackPath.Models
         public List<Person> persons { get; set;}
         public List<Location> locations { get; set;}
         public List<Object> roles { get; set;}
-        public List<Assets> assets { get; set;}
+        public List<Asset> assets { get; set;}
     }
 }
