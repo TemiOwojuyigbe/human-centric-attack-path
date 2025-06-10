@@ -1,0 +1,72 @@
+{
+  "persons": [
+    {
+      "user_id": "1",
+      "name": "Alice Smith",
+      "has_phish_training": false,
+      "role": "HR",
+      "email": "alice.smith@example.com",
+      "phone": "555-1234",
+      "risk_profile": "Low",
+      "access_assets": ["1"],
+      "access_locations": ["1", "2"]
+    },
+    {
+      "user_id": "2",
+      "name": "Bob Johnson",
+      "has_phish_training": true,
+      "role": "IT",
+      "email": "bob.johnson@example.com",
+      "phone": "555-5678",
+      "risk_profile": "High",
+      "access_assets": ["2"],
+      "access_locations": ["2", "3"]
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "1",
+      "name": "HR Office",
+      "has_badge_reader": false,
+      "adjacent_to": ["2"]
+    },
+    {
+      "location_id": "2",
+      "name": "Main Lobby",
+      "has_badge_reader": true,
+      "adjacent_to": ["1", "3"]
+    },
+    {
+      "location_id": "3",
+      "name": "Server Room",
+      "has_badge_reader": true,
+      "adjacent_to": ["2"]
+    }
+  ],
+  "roles": [
+    { "role_id": "1", "name": "HR" },
+    { "role_id": "2", "name": "IT" }
+  ],
+  "assets": [
+    {
+      "asset_id": "1",
+      "name": "HR Database",
+      "type": "Database",
+      "location_id": "1",
+      "vulnerabilities": [
+        { "cve": "CVE-2023-0001", "severity": "Medium" }
+      ],
+      "is_critical": false
+    },
+    {
+      "asset_id": "2",
+      "name": "Active Directory",
+      "type": "Directory Service",
+      "location_id": "3",
+      "vulnerabilities": [
+        { "cve": "CVE-2023-0002", "severity": "High" }
+      ],
+      "is_critical": true
+    }
+  ]
+}
