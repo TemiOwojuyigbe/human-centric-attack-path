@@ -80,11 +80,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\Backend\\HumanCentricAttackPath\\HumanCentricAttackPath.csproj",
+      "projectUniqueName": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\backend\\HumanCentricAttackPath\\HumanCentricAttackPath.csproj",
       "projectName": "HumanCentricAttackPath",
-      "projectPath": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\Backend\\HumanCentricAttackPath\\HumanCentricAttackPath.csproj",
+      "projectPath": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\backend\\HumanCentricAttackPath\\HumanCentricAttackPath.csproj",
       "packagesPath": "C:\\Users\\temil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\Backend\\HumanCentricAttackPath\\obj\\",
+      "outputPath": "C:\\Users\\temil\\OneDrive\\Desktop\\human-centric-attack-path\\backend\\HumanCentricAttackPath\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\temil\\AppData\\Roaming\\NuGet\\NuGet.Config"
