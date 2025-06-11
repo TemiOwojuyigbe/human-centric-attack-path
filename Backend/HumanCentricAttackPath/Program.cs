@@ -19,6 +19,17 @@ builder.Services.AddControllers();
 // builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -75,6 +86,8 @@ app.MapGet("/weatherforecast", () =>
 
  // 3) Map controllers so that routes in AttackController are exposed
 app.MapControllers();
+
+app.UseCors("AllowAll");
 
 app.Run();
 
