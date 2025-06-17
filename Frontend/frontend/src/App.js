@@ -11,14 +11,18 @@ function App() {
 
   const fetchPaths = async () => {
     setLoading(true);
-    const res = await axios.get("http://localhost:5000/api/attack/top_paths");
+    const res = await axios.get("http://localhost:5028/api/attack/top_paths");
+    console.log(res.data);
     setPaths(res.data);
     setLoading(false);
   };
 
   const trainAlice = async () => {
-    await axios.post("http://localhost:5000/api/attack/toggle_training", { user_id: "U1001" });
-    fetchPaths();
+    try {
+      const res = await axios.post("http://localhost:5028/api/attack/toggle_training", { user_id: "U1001" });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -26,6 +30,11 @@ function App() {
       <h1>Social-Engineering Attack-Path Simulator</h1>
       <button onClick={fetchPaths}>Fetch Paths</button>
       <button onClick={trainAlice}>Train Alice</button>
+      <ul>
+        {paths.map((p, idx) => (
+          <li key={idx}>{p.path} (prob: {p.probability})</li>
+        ))}
+      </ul>
       {/* Render chart and table here */}
     </div>
   );
