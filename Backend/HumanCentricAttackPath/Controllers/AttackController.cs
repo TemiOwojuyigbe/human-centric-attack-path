@@ -47,6 +47,33 @@ namespace HumanCentricAttackPath.Controllers
             return Ok(results);
         }
 
+        [HttpGet("test_asset_scoring")]
+        public ActionResult<object> TestAssetScoring()
+        {
+            var dataPath = Path.Combine("data", "demo_data.json");
+            var json = System.IO.File.ReadAllText(dataPath);
+            var demoData = JsonSerializer.Deserialize<DemoData>(json);
+
+            var results = new List<object>();
+
+            foreach(var asset in demoData.assets)
+            {
+                double score = _scoringService.CalculateAssetValue(asset);
+                
+                results.Add(new
+                {
+                    asset_id = asset.asset_id,
+                    name = asset.name,
+                    type = asset.type,
+                    location_id = asset.location_id,
+                    is_critical = asset.is_critical,
+                    score = score,
+                    score_percentage = Math.Round(score * 100, 2)
+                });
+            }
+            return Ok(results);
+        }
+
         [HttpGet("top_paths")]
         public ActionResult<List<AttackPath>> GetTopPaths()
         {

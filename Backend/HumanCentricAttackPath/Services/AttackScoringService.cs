@@ -79,8 +79,35 @@ namespace HumanCentricAttackPath.Services
         // Asset value scoring
         public double CalculateAssetValue(Asset asset)
         {
+            double score = 0.0;
+
+            if (asset.type == "Database"){
+                score += 0.2;
+            }
+            if (asset.type == "Directory Service"){
+                score += 0.3;
+            }
+            if (asset.is_critical == true) {
+                score += 0.4;
+            }
+
+            foreach (var vulnerability in asset.vulnerabilities){
+                if (vulnerability.severity != null){
+                    switch (vulnerability.severity.ToLower()){
+                    case "high": score += 0.2; break;
+                    case "medium": score += 0.1; break;
+                    case "low": score += 0.05; break;
+                    }
+                } else {
+                    return 0.0;
+                }
+            }
+            if (score > 1.0){
+                score = 1.0;
+            }
+            return score;
+
             // TODO: Implement asset value scoring
-            return 0.5; // Placeholder return
         }
 
         // Path finding 
