@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import AttackPathGraph from "./AttackPathGraph";
+
 function App() {
   const [paths, setPaths] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -30,12 +32,7 @@ function App() {
       <h1>Social-Engineering Attack-Path Simulator</h1>
       <button onClick={fetchPaths}>Fetch Paths</button>
       <button onClick={trainAlice}>Train Alice</button>
-      <ul>
-        {paths.map((p, idx) => (
-          <li key={idx}>{p.path} (prob: {p.probability})</li>
-        ))}
-      </ul>
-      {/* Render chart and table here */}
+      <AttackPathGraph />
     </div>
   );
 }

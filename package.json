@@ -15,6 +15,7 @@
     "express": "^5.1.0",
     "graphlib": "^2.1.8",
     "react-router-dom": "^7.6.2",
+    "reactflow": "^11.11.4",
     "recharts": "^2.15.3"
   }
 }
