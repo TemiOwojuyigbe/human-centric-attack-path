@@ -91,6 +91,17 @@ namespace HumanCentricAttackPath.Controllers
             return Ok(topPaths);
         }
 
+        [HttpGet("attack_paths")]
+        public ActionResult<List<AttackPath>> FindAttackPaths()
+        {
+            var dataPath = Path.Combine("data", "demo_data.json");
+            var json = System.IO.File.ReadAllText(dataPath);
+            var demoData = JsonSerializer.Deserialize<DemoData>(json);
+            var paths = _scoringService.FindAttackPaths(demoData.persons, demoData.assets, demoData.locations);
+
+            return Ok(paths);
+        }
+
         [HttpPost("toggle_training")]
         public ActionResult<List<AttackPath>> ToggleTraining([FromBody] ToggleTrainingRequest request)
         {

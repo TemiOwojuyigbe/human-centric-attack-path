@@ -15,12 +15,15 @@
         "1",
         "2"
       ],
-      "last_training_date": "2024-01-15",
+      "last_training_date": "2024-01-15T00:00:00",
       "training_type": "interactive",
       "social_engineering_resistance": 70,
       "authority_level": "Medium",
       "work_schedule": "9-5",
-      "communication_preferences": ["email", "phone"]
+      "communication_preferences": [
+        "email",
+        "phone"
+      ]
     },
     {
       "user_id": "2",
@@ -37,12 +40,15 @@
         "2",
         "3"
       ],
-      "last_training_date": "2023-06-15",
+      "last_training_date": "2023-06-15T00:00:00",
       "training_type": "interactive",
       "social_engineering_resistance": 45,
       "authority_level": "Medium",
       "work_schedule": "9-5",
-      "communication_preferences": ["email", "in-person"]
+      "communication_preferences": [
+        "email",
+        "in-person"
+      ]
     }
   ],
   "locations": [

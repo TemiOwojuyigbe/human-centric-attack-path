@@ -5,7 +5,7 @@ using System.Text.Json; // for JsonSerializer
 using HumanCentricAttackPath.Models;
 
 namespace HumanCentricAttackPath.Services 
-{
+{   
     public class AttackScoringService
     {
         // Main user vulnerability scoring method
@@ -107,14 +107,99 @@ namespace HumanCentricAttackPath.Services
             }
             return score;
 
-            // TODO: Implement asset value scoring
         }
 
         // Path finding 
-        public List<AttackPath> FindAttackPaths(List<Person> users, List<Asset> assets)
+        public List<AttackPath> FindAttackPaths(List<Person> users, List<Asset> assets, List<Location> locations)
         {
-            // TODO: Implement path finding
-            return new List<AttackPath>(); // Placeholder return
+            var paths = new List<AttackPath>();
+
+            foreach (var user in users)
+            {
+                double userVuln = CalculateUserVulnerability(user);
+
+                foreach (var locId in user.access_locations)
+                {
+                    DfsLocation(
+                        user.name,
+                        userVuln,
+                        locId,
+                        "", // pathSoFar
+                        new HashSet<string>(),
+                        locations,
+                        assets,
+                        paths
+                    );
+                }
+
+                // (Optional) For direct asset access
+                foreach (var assetId in user.access_assets)
+                {
+                    var asset = assets.FirstOrDefault(a => a.asset_id == assetId);
+                    if (asset != null)
+                    {
+                        double assetValue = CalculateAssetValue(asset);
+                        double pathScore = userVuln * assetValue;
+                        var path = new AttackPath
+                        {
+                            Path = $"{user.name} -> {asset.name}",
+                            Probability = pathScore
+                        };
+                        paths.Add(path);
+                    }
+                }
+            }
+
+            paths = paths.OrderByDescending(p => p.Probability).ToList();
+            return paths;
+        }
+
+        private void DfsLocation(
+            string userName,
+            double userVuln,
+            string currentLocId,
+            string pathSoFar,
+            HashSet<string> visitedLocs,
+            List<Location> locations,
+            List<Asset> assets,
+            List<AttackPath> paths)
+        {
+            visitedLocs.Add(currentLocId);
+
+            // Find all assets in this location
+            var assetsInLoc = assets.Where(a => a.location_id == currentLocId).ToList();
+            foreach (var asset in assetsInLoc)
+            {
+                double assetValue = CalculateAssetValue(asset);
+                double pathScore = userVuln * assetValue;
+                var pathObj = new AttackPath
+                {
+                    Path = $"{userName} -> {pathSoFar}{locations.First(l => l.location_id == currentLocId).name} -> {asset.name}",
+                    Probability = pathScore
+                };
+                paths.Add(pathObj);
+            }
+
+            // Find adjacent locations and recurse
+            var currentLoc = locations.First(l => l.location_id == currentLocId);
+            foreach (var adjLocId in currentLoc.adjacent_to)
+            {
+                if (!visitedLocs.Contains(adjLocId))
+                {
+                    DfsLocation(
+                        userName,
+                        userVuln,
+                        adjLocId,
+                        pathSoFar + locations.First(l => l.location_id == currentLocId).name + " -> ",
+                        visitedLocs,
+                        locations,
+                        assets,
+                        paths
+                    );
+                }
+            }
+
+            visitedLocs.Remove(currentLocId); // Backtrack
         }
 
         // Combined scoring 
