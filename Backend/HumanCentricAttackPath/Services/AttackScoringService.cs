@@ -110,7 +110,7 @@ namespace HumanCentricAttackPath.Services
         }
 
         // Path finding 
-        public List<AttackPath> FindAttackPaths(List<Person> users, List<Asset> assets, List<Location> locations)
+        public List<AttackPath> FindAttackPaths(List<Person> users, List<Asset> assets, List<Location> locations, AttackerProfile profile)
         {
             var paths = new List<AttackPath>();
 
@@ -128,7 +128,10 @@ namespace HumanCentricAttackPath.Services
                         new HashSet<string>(),
                         locations,
                         assets,
-                        paths
+                        paths,
+                        profile,
+                        1, 
+                        0.0 
                     );
                 }
 
@@ -139,7 +142,8 @@ namespace HumanCentricAttackPath.Services
                     if (asset != null)
                     {
                         double assetValue = CalculateAssetValue(asset);
-                        double pathScore = userVuln * assetValue;
+                        double pathScore = (profile.VulnerabilityWeight * userVuln * assetValue) /
+                        (1 + profile.PathLengthWeight * 1 + profile.CostWeight * 0.0);
                         var path = new AttackPath
                         {
                             Path = $"{user.name} -> {asset.name}",
@@ -162,7 +166,10 @@ namespace HumanCentricAttackPath.Services
             HashSet<string> visitedLocs,
             List<Location> locations,
             List<Asset> assets,
-            List<AttackPath> paths)
+            List<AttackPath> paths,
+            AttackerProfile profile,
+            int pathLength = 1,
+            double totalCost = 0.0)
         {
             visitedLocs.Add(currentLocId);
 
@@ -171,7 +178,8 @@ namespace HumanCentricAttackPath.Services
             foreach (var asset in assetsInLoc)
             {
                 double assetValue = CalculateAssetValue(asset);
-                double pathScore = userVuln * assetValue;
+                double pathScore = (profile.VulnerabilityWeight * userVuln * assetValue) /
+                (1 + profile.PathLengthWeight * pathLength + profile.CostWeight * totalCost); 
                 var pathObj = new AttackPath
                 {
                     Path = $"{userName} -> {pathSoFar}{locations.First(l => l.location_id == currentLocId).name} -> {asset.name}",
@@ -182,6 +190,8 @@ namespace HumanCentricAttackPath.Services
 
             // Find adjacent locations and recurse
             var currentLoc = locations.First(l => l.location_id == currentLocId);
+            double stepCost = 0.0;
+            if (currentLoc.has_badge_reader) stepCost += 1.0;
             foreach (var adjLocId in currentLoc.adjacent_to)
             {
                 if (!visitedLocs.Contains(adjLocId))
@@ -190,11 +200,14 @@ namespace HumanCentricAttackPath.Services
                         userName,
                         userVuln,
                         adjLocId,
-                        pathSoFar + locations.First(l => l.location_id == currentLocId).name + " -> ",
+                        pathSoFar + currentLoc.name + " -> ",
                         visitedLocs,
                         locations,
                         assets,
-                        paths
+                        paths,
+                        profile,
+                        pathLength + 1,
+                        totalCost + stepCost
                     );
                 }
             }

@@ -92,12 +92,24 @@ namespace HumanCentricAttackPath.Controllers
         }
 
         [HttpGet("attack_paths")]
-        public ActionResult<List<AttackPath>> FindAttackPaths()
+        public ActionResult<List<AttackPath>> FindAttackPaths([FromQuery] string profile = "Stealthy")
         {
             var dataPath = Path.Combine("data", "demo_data.json");
             var json = System.IO.File.ReadAllText(dataPath);
             var demoData = JsonSerializer.Deserialize<DemoData>(json);
-            var paths = _scoringService.FindAttackPaths(demoData.persons, demoData.assets, demoData.locations);
+
+            AttackerProfile attackerProfile = profile switch
+            {
+                "Aggressive" => AttackerProfiles.Aggressive,
+                "Opportunistic" => AttackerProfiles.Opportunistic,
+                _ => AttackerProfiles.Stealthy
+            };
+            var paths = _scoringService.FindAttackPaths(
+                demoData.persons, 
+                demoData.assets, 
+                demoData.locations,
+                attackerProfile 
+            );
 
             return Ok(paths);
         }
