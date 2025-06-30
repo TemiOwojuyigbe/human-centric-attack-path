@@ -117,11 +117,12 @@ namespace HumanCentricAttackPath.Services
             foreach (var user in users)
             {
                 double userVuln = CalculateUserVulnerability(user);
+                string userLabel = $"{user.name} (Vuln: {userVuln:F2})";
 
                 foreach (var locId in user.access_locations)
                 {
                     DfsLocation(
-                        user.name,
+                        userLabel,
                         userVuln,
                         locId,
                         "", // pathSoFar
@@ -135,7 +136,7 @@ namespace HumanCentricAttackPath.Services
                     );
                 }
 
-                // (Optional) For direct asset access
+                // For direct asset access
                 foreach (var assetId in user.access_assets)
                 {
                     var asset = assets.FirstOrDefault(a => a.asset_id == assetId);
@@ -146,7 +147,7 @@ namespace HumanCentricAttackPath.Services
                         (1 + profile.PathLengthWeight * 1 + profile.CostWeight * 0.0);
                         var path = new AttackPath
                         {
-                            Path = $"{user.name} -> {asset.name}",
+                            Path = $"{userLabel} -> {asset.name}",
                             Probability = pathScore
                         };
                         paths.Add(path);
@@ -159,7 +160,7 @@ namespace HumanCentricAttackPath.Services
         }
 
         private void DfsLocation(
-            string userName,
+            string userLabel,
             double userVuln,
             string currentLocId,
             string pathSoFar,
@@ -182,7 +183,7 @@ namespace HumanCentricAttackPath.Services
                 (1 + profile.PathLengthWeight * pathLength + profile.CostWeight * totalCost); 
                 var pathObj = new AttackPath
                 {
-                    Path = $"{userName} -> {pathSoFar}{locations.First(l => l.location_id == currentLocId).name} -> {asset.name}",
+                    Path = $"{userLabel} -> {pathSoFar}{locations.First(l => l.location_id == currentLocId).name} -> {asset.name}",
                     Probability = pathScore
                 };
                 paths.Add(pathObj);
@@ -197,7 +198,7 @@ namespace HumanCentricAttackPath.Services
                 if (!visitedLocs.Contains(adjLocId))
                 {
                     DfsLocation(
-                        userName,
+                        userLabel,
                         userVuln,
                         adjLocId,
                         pathSoFar + currentLoc.name + " -> ",
@@ -216,10 +217,10 @@ namespace HumanCentricAttackPath.Services
         }
 
         // Combined scoring 
-        public List<AttackPath> GetOptimalAttackPaths(DemoData data)
+        public List<AttackPath> GetOptimalAttackPaths(DemoData data, AttackerProfile profile, int topN = 1)
         {
-            // TODO: Implement combined scoring
-            return new List<AttackPath>(); // Placeholder return
+            var allPaths = FindAttackPaths(data.persons, data.assets, data.locations, profile );
+            return allPaths.Take(topN).ToList();
         }
     }
            

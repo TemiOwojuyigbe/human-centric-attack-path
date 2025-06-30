@@ -30,7 +30,6 @@ C:\Users\temil\OneDrive\Desktop\human-centric-attack-path\Backend\HumanCentricAt
 C:\Users\temil\OneDrive\Desktop\human-centric-attack-path\Backend\HumanCentricAttackPath\obj\Debug\net9.0\ref\HumanCentricAttackPath.dll
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\appsettings.json
-C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\data\demo_data.json
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\HumanCentricAttackPath.staticwebassets.endpoints.json
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\HumanCentricAttackPath.exe
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\HumanCentricAttackPath.deps.json
@@ -58,3 +57,4 @@ C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\obj\Debug\net9.0\HumanCentricAttackPath.pdb
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\obj\Debug\net9.0\HumanCentricAttackPath.genruntimeconfig.cache
 C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\obj\Debug\net9.0\ref\HumanCentricAttackPath.dll
+C:\Users\temil\OneDrive\Desktop\HumanCentricAttackPath\human-centric-attack-path\Backend\HumanCentricAttackPath\bin\Debug\net9.0\data\demo_data.json

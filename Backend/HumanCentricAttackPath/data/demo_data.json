@@ -1,122 +1,325 @@
 {
-  "persons": [
-    {
-      "user_id": "U1001",
-      "name": "Alice Smith",
-      "role": "HR",
-      "email": "alice.smith@example.com",
-      "phone": "555-1234",
-      "risk_profile": "Low",
-      "has_phish_training": false,
-      "access_assets": [
-        "1"
-      ],
-      "access_locations": [
-        "1",
-        "2"
-      ],
-      "last_training_date": "2024-01-15T00:00:00",
-      "training_type": "interactive",
-      "social_engineering_resistance": 70,
-      "authority_level": "Medium",
-      "work_schedule": "9-5",
-      "communication_preferences": [
-        "email",
-        "phone"
-      ]
-    },
-    {
-      "user_id": "2",
-      "name": "Bob Johnson",
-      "role": "IT",
-      "email": "bob.johnson@example.com",
-      "phone": "555-5678",
-      "risk_profile": "High",
-      "has_phish_training": true,
-      "access_assets": [
-        "2"
-      ],
-      "access_locations": [
-        "2",
-        "3"
-      ],
-      "last_training_date": "2023-06-15T00:00:00",
-      "training_type": "interactive",
-      "social_engineering_resistance": 45,
-      "authority_level": "Medium",
-      "work_schedule": "9-5",
-      "communication_preferences": [
-        "email",
-        "in-person"
-      ]
-    }
-  ],
-  "locations": [
-    {
-      "location_id": "1",
-      "name": "HR Office",
-      "has_badge_reader": false,
-      "security_level": 0,
-      "adjacent_to": [
-        "2"
-      ]
-    },
-    {
-      "location_id": "2",
-      "name": "Main Lobby",
-      "has_badge_reader": true,
-      "security_level": 0,
-      "adjacent_to": [
-        "1",
-        "3"
-      ]
-    },
-    {
-      "location_id": "3",
-      "name": "Server Room",
-      "has_badge_reader": true,
-      "security_level": 0,
-      "adjacent_to": [
-        "2"
-      ]
-    }
-  ],
-  "roles": [
-    {
-      "role_id": "1",
-      "name": "HR"
-    },
-    {
-      "role_id": "2",
-      "name": "IT"
-    }
-  ],
-  "assets": [
-    {
-      "asset_id": "1",
-      "name": "HR Database",
-      "type": "Database",
-      "location_id": "1",
-      "vulnerabilities": [
-        {
-          "cve": "CVE-2023-0001",
-          "severity": "Medium"
-        }
-      ],
-      "is_critical": false
-    },
-    {
-      "asset_id": "2",
-      "name": "Active Directory",
-      "type": "Directory Service",
-      "location_id": "3",
-      "vulnerabilities": [
-        {
-          "cve": "CVE-2023-0002",
-          "severity": "High"
-        }
-      ],
-      "is_critical": true
-    }
-  ]
-}
+    "persons": [
+      {
+        "user_id": "U1001",
+        "name": "Alice Smith",
+        "role": "HR Manager",
+        "email": "alice.smith@example.com",
+        "phone": "555-1234",
+        "risk_profile": "Low",
+        "has_phish_training": false,
+        "access_assets": ["1"],
+        "access_locations": ["1", "2"],
+        "last_training_date": "2024-01-15T00:00:00",
+        "training_type": "interactive",
+        "social_engineering_resistance": 70,
+        "authority_level": "Medium",
+        "work_schedule": "9-5",
+        "communication_preferences": ["email", "phone"]
+      },
+      {
+        "user_id": "U1002",
+        "name": "Bob Johnson",
+        "role": "IT Administrator",
+        "email": "bob.johnson@example.com",
+        "phone": "555-5678",
+        "risk_profile": "High",
+        "has_phish_training": true,
+        "access_assets": ["2", "3"],
+        "access_locations": ["2", "3", "4"],
+        "last_training_date": "2023-06-15T00:00:00",
+        "training_type": "interactive",
+        "social_engineering_resistance": 45,
+        "authority_level": "High",
+        "work_schedule": "9-5",
+        "communication_preferences": ["email", "in-person"]
+      },
+      {
+        "user_id": "U1003",
+        "name": "Carol Davis",
+        "role": "Receptionist",
+        "email": "carol.davis@example.com",
+        "phone": "555-9012",
+        "risk_profile": "Medium",
+        "has_phish_training": false,
+        "access_assets": [],
+        "access_locations": ["2", "5"],
+        "last_training_date": "2023-12-01T00:00:00",
+        "training_type": "video",
+        "social_engineering_resistance": 30,
+        "authority_level": "Low",
+        "work_schedule": "8-6",
+        "communication_preferences": ["phone", "in-person"]
+      },
+      {
+        "user_id": "U1004",
+        "name": "David Wilson",
+        "role": "Security Guard",
+        "email": "david.wilson@example.com",
+        "phone": "555-3456",
+        "risk_profile": "Low",
+        "has_phish_training": true,
+        "access_assets": [],
+        "access_locations": ["2", "3", "4", "5"],
+        "last_training_date": "2024-02-20T00:00:00",
+        "training_type": "interactive",
+        "social_engineering_resistance": 85,
+        "authority_level": "Low",
+        "work_schedule": "24/7",
+        "communication_preferences": ["radio", "phone"]
+      },
+      {
+        "user_id": "U1005",
+        "name": "Eva Rodriguez",
+        "role": "Finance Director",
+        "email": "eva.rodriguez@example.com",
+        "phone": "555-7890",
+        "risk_profile": "Medium",
+        "has_phish_training": true,
+        "access_assets": ["4", "5"],
+        "access_locations": ["6", "2"],
+        "last_training_date": "2024-01-30T00:00:00",
+        "training_type": "interactive",
+        "social_engineering_resistance": 60,
+        "authority_level": "High",
+        "work_schedule": "9-5",
+        "communication_preferences": ["email", "phone"]
+      },
+      {
+        "user_id": "U1006",
+        "name": "Frank Chen",
+        "role": "Software Developer",
+        "email": "frank.chen@example.com",
+        "phone": "555-2345",
+        "risk_profile": "Medium",
+        "has_phish_training": false,
+        "access_assets": ["6"],
+        "access_locations": ["7", "2"],
+        "last_training_date": "2023-08-10T00:00:00",
+        "training_type": "video",
+        "social_engineering_resistance": 40,
+        "authority_level": "Medium",
+        "work_schedule": "10-6",
+        "communication_preferences": ["email", "slack"]
+      },
+      {
+        "user_id": "U1007",
+        "name": "Grace Thompson",
+        "role": "CEO",
+        "email": "grace.thompson@example.com",
+        "phone": "555-6789",
+        "risk_profile": "High",
+        "has_phish_training": true,
+        "access_assets": ["4", "5", "7"],
+        "access_locations": ["8", "6", "2"],
+        "last_training_date": "2024-03-01T00:00:00",
+        "training_type": "interactive",
+        "social_engineering_resistance": 75,
+        "authority_level": "High",
+        "work_schedule": "8-7",
+        "communication_preferences": ["email", "phone", "in-person"]
+      },
+      {
+        "user_id": "U1008",
+        "name": "Henry Brown",
+        "role": "Janitor",
+        "email": "henry.brown@example.com",
+        "phone": "555-4567",
+        "risk_profile": "Low",
+        "has_phish_training": false,
+        "access_assets": [],
+        "access_locations": ["1", "2", "3", "5", "6", "7"],
+        "last_training_date": "2023-10-15T00:00:00",
+        "training_type": "video",
+        "social_engineering_resistance": 25,
+        "authority_level": "Low",
+        "work_schedule": "6-10",
+        "communication_preferences": ["phone"]
+      }
+    ],
+    "locations": [
+      {
+        "location_id": "1",
+        "name": "HR Office",
+        "has_badge_reader": false,
+        "security_level": 1,
+        "adjacent_to": ["2"]
+      },
+      {
+        "location_id": "2",
+        "name": "Main Lobby",
+        "has_badge_reader": true,
+        "security_level": 2,
+        "adjacent_to": ["1", "3", "5", "6", "7"]
+      },
+      {
+        "location_id": "3",
+        "name": "Server Room",
+        "has_badge_reader": true,
+        "security_level": 3,
+        "adjacent_to": ["2", "4"]
+      },
+      {
+        "location_id": "4",
+        "name": "Network Operations Center",
+        "has_badge_reader": true,
+        "security_level": 3,
+        "adjacent_to": ["3"]
+      },
+      {
+        "location_id": "5",
+        "name": "Reception Area",
+        "has_badge_reader": false,
+        "security_level": 1,
+        "adjacent_to": ["2"]
+      },
+      {
+        "location_id": "6",
+        "name": "Finance Department",
+        "has_badge_reader": true,
+        "security_level": 2,
+        "adjacent_to": ["2", "8"]
+      },
+      {
+        "location_id": "7",
+        "name": "Development Lab",
+        "has_badge_reader": true,
+        "security_level": 2,
+        "adjacent_to": ["2"]
+      },
+      {
+        "location_id": "8",
+        "name": "Executive Suite",
+        "has_badge_reader": true,
+        "security_level": 3,
+        "adjacent_to": ["6"]
+      }
+    ],
+    "roles": [
+      {
+        "role_id": "1",
+        "name": "HR Manager"
+      },
+      {
+        "role_id": "2",
+        "name": "IT Administrator"
+      },
+      {
+        "role_id": "3",
+        "name": "Receptionist"
+      },
+      {
+        "role_id": "4",
+        "name": "Security Guard"
+      },
+      {
+        "role_id": "5",
+        "name": "Finance Director"
+      },
+      {
+        "role_id": "6",
+        "name": "Software Developer"
+      },
+      {
+        "role_id": "7",
+        "name": "CEO"
+      },
+      {
+        "role_id": "8",
+        "name": "Janitor"
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "1",
+        "name": "HR Database",
+        "type": "Database",
+        "location_id": "1",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0001",
+            "severity": "Medium"
+          }
+        ],
+        "is_critical": false
+      },
+      {
+        "asset_id": "2",
+        "name": "Active Directory",
+        "type": "Directory Service",
+        "location_id": "3",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0002",
+            "severity": "High"
+          }
+        ],
+        "is_critical": true
+      },
+      {
+        "asset_id": "3",
+        "name": "Network Infrastructure",
+        "type": "Network Device",
+        "location_id": "4",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0003",
+            "severity": "High"
+          }
+        ],
+        "is_critical": true
+      },
+      {
+        "asset_id": "4",
+        "name": "Financial Records",
+        "type": "Database",
+        "location_id": "6",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0004",
+            "severity": "Medium"
+          }
+        ],
+        "is_critical": true
+      },
+      {
+        "asset_id": "5",
+        "name": "Payroll System",
+        "type": "Application",
+        "location_id": "6",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0005",
+            "severity": "Low"
+          }
+        ],
+        "is_critical": true
+      },
+      {
+        "asset_id": "6",
+        "name": "Source Code Repository",
+        "type": "Version Control",
+        "location_id": "7",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0006",
+            "severity": "Medium"
+          }
+        ],
+        "is_critical": false
+      },
+      {
+        "asset_id": "7",
+        "name": "Executive Communications",
+        "type": "Email Server",
+        "location_id": "8",
+        "vulnerabilities": [
+          {
+            "cve": "CVE-2023-0007",
+            "severity": "High"
+          }
+        ],
+        "is_critical": true
+      }
+    ]
+  }

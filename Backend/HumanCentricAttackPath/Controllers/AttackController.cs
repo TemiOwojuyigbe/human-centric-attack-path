@@ -110,8 +110,28 @@ namespace HumanCentricAttackPath.Controllers
                 demoData.locations,
                 attackerProfile 
             );
-
             return Ok(paths);
+        }
+
+        [HttpGet("user_vulnerabilities")]
+        public ActionResult<object> GetUserVulnerabilities()
+        {
+            var dataPath = Path.Combine("data", "demo_data.json");
+            var json = System.IO.File.ReadAllText(dataPath);
+            var demoData = JsonSerializer.Deserialize<DemoData>(json);
+
+            var results = new List<object>();
+            foreach (var person in demoData.persons)
+            {
+                double vulnerability = _scoringService.CalculateUserVulnerability(person);
+                results.Add(new
+                {
+                    user_id = person.user_id,
+                    name = person.name,
+                    vulnerability_score = vulnerability
+                });
+            }
+            return Ok(results);
         }
 
         [HttpPost("toggle_training")]
