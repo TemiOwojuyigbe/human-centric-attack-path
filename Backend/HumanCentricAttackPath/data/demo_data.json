@@ -109,12 +109,12 @@
         "email": "grace.thompson@example.com",
         "phone": "555-6789",
         "risk_profile": "High",
-        "has_phish_training": true,
+        "has_phish_training": false,
         "access_assets": ["4", "5", "7"],
         "access_locations": ["8", "6", "2"],
-        "last_training_date": "2024-03-01T00:00:00",
-        "training_type": "interactive",
-        "social_engineering_resistance": 75,
+        "last_training_date": null,
+        "training_type": "none",
+        "social_engineering_resistance": 10,
         "authority_level": "High",
         "work_schedule": "8-7",
         "communication_preferences": ["email", "phone", "in-person"]
@@ -316,6 +316,10 @@
         "vulnerabilities": [
           {
             "cve": "CVE-2023-0007",
+            "severity": "High"
+          },
+          {
+            "cve": "CVE-2023-9999",
             "severity": "High"
           }
         ],

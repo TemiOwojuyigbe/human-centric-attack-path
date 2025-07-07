@@ -12,8 +12,11 @@ namespace HumanCentricAttackPath.Models
 
     public static class AttackerProfiles
     {
-        public static AttackerProfile Stealthy = new AttackerProfile { Name = "Stealthy", PathLengthWeight = 1.0, CostWeight = 1.0, VulnerabilityWeight = 0.5 };
-        public static AttackerProfile Aggressive = new AttackerProfile { Name = "Aggressive", PathLengthWeight = 0.2, CostWeight = 0.1, VulnerabilityWeight = 1.0 };
-        public static AttackerProfile Opportunistic = new AttackerProfile { Name = "Opportunistic", PathLengthWeight = 0.5, CostWeight = 0.5, VulnerabilityWeight = 0.5 };
+        // Stealthy: cares a lot about path length and cost, less about vulnerability
+        public static AttackerProfile Stealthy = new AttackerProfile { Name = "Stealthy", PathLengthWeight = 5.0, CostWeight = 5.0, VulnerabilityWeight = 0.2 };
+        // Aggressive: cares almost only about vulnerability
+        public static AttackerProfile Aggressive = new AttackerProfile { Name = "Aggressive", PathLengthWeight = 0.05, CostWeight = 0.05, VulnerabilityWeight = 2.0 };
+        // Opportunistic: balances all factors, but still more sensitive to vulnerability
+        public static AttackerProfile Opportunistic = new AttackerProfile { Name = "Opportunistic", PathLengthWeight = 1.0, CostWeight = 1.0, VulnerabilityWeight = 1.0 };
     }
 }

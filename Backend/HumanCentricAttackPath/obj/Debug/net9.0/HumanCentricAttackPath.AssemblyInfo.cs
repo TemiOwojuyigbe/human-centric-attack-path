@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HumanCentricAttackPath")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f14d20af10c62b8df1911a7b1185e71125c9e618")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19d9a7b2a8a9bffc100e325b49cafdf7c2b68cb1")]
 [assembly: System.Reflection.AssemblyProductAttribute("HumanCentricAttackPath")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HumanCentricAttackPath")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -75,19 +75,20 @@ namespace HumanCentricAttackPath.Controllers
         }
 
         [HttpGet("top_paths")]
-        public ActionResult<List<AttackPath>> GetTopPaths()
+        public ActionResult<List<AttackPath>> GetTopPaths([FromQuery] string profile = "Stealthy", [FromQuery] int topN = 5)
         {
             var dataPath = Path.Combine("data", "demo_data.json");
             var json = System.IO.File.ReadAllText(dataPath);
             var demoData = JsonSerializer.Deserialize<DemoData>(json);
 
-            var alice = demoData.persons.FirstOrDefault(p => p.user_id == "U1001");
-            double probability = (alice != null && alice.has_phish_training) ? 0.01 : 0.05;
-
-            var topPaths = new List<AttackPath>
+            AttackerProfile attackerProfile = profile switch
             {
-                new AttackPath { Path = "Attacker -> Alice Smith -> HR Database", Probability = probability }
+                "Aggressive" => AttackerProfiles.Aggressive,
+                "Opportunistic" => AttackerProfiles.Opportunistic,
+                _ => AttackerProfiles.Stealthy
             };
+            var allPaths = _scoringService.FindAttackPaths(demoData.persons, demoData.assets, demoData.locations, attackerProfile);
+            var topPaths = allPaths.Take(topN).ToList();
             return Ok(topPaths);
         }
 
@@ -132,6 +133,33 @@ namespace HumanCentricAttackPath.Controllers
                 });
             }
             return Ok(results);
+        }
+
+        [HttpGet("best_path")]
+        public ActionResult<List<AttackPath>> GetBestPath([FromQuery] string profile = "Stealthy")
+        {
+            var dataPath = Path.Combine("data", "demo_data.json");
+            var json = System.IO.File.ReadAllText(dataPath);
+            var demoData = JsonSerializer.Deserialize<DemoData>(json);
+
+            AttackerProfile attackerProfile = profile switch
+            {
+                "Aggressive" => AttackerProfiles.Aggressive,
+                "Opportunistic" => AttackerProfiles.Opportunistic,
+                _ => AttackerProfiles.Stealthy
+            };
+            var allPaths = _scoringService.FindAttackPaths(demoData.persons, demoData.assets, demoData.locations, attackerProfile);
+            var bestPath = allPaths.Take(1).ToList();
+
+            // Debug output: log top 5 paths and their scores
+            Console.WriteLine($"\n--- Top 5 Paths for Profile: {attackerProfile.Name} ---");
+            foreach (var path in allPaths.Take(5))
+            {
+                Console.WriteLine($"Path: {path.Path} | Score: {path.Probability}");
+            }
+            Console.WriteLine("---------------------------------------------\n");
+
+            return Ok(bestPath);
         }
 
         [HttpPost("toggle_training")]
